@@ -1,11 +1,11 @@
 div {
     background-color: skyblue;
-    padding: 10px;
-    width: 30%;
+    padding: 3px;
+    width: 40%;
     margin: auto;
 }
 
 .center {
-    text-align: center;
+    text-align: left;
     list-style-position: inside;
 }
