@@ -1,7 +1,7 @@
 
 
 function addLink() {
-    const links = [
+    var links = [
       {
         label:"Week1 notes",
         url:"week1/index.html"
