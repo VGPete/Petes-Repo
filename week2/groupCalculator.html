@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Group Calculator</title>
+</head>
+
+<body>
+</body>
+<h2>Requirement 02</h2>
+<input id="inputSumAll" type="number" placeholder="enter a number">
+<button id="sumAll" onclick="sumAll()">Sum All</button>
+<div id="outputSumAll"></div>
+
+
+<br>
+<br>
+<br>
+<h2>
+    Calculator
+</h2>
+<input id="input" type="number" placeholder="enter a number">
+<input id="input2" type="number" placeholder="enter another number">
+<br>
+<button id="add" onclick="addition()">+</button>
+<button id="sub" onclick="subtraction()">-</button>
+<button id="multiply" onclick="multiply()">X</button>
+<button id="divide" onclick="divide()">%</button>
+<div id="output"></div>
+
+<script>
+    let input = document.getElementById("input");
+    let input2 = document.getElementById("input2")
+    let output = document.getElementById("output");
+
+    const addition = () => {
+        output.innerText = parseFloat(input.value) + parseFloat(input2.value)
+    }
+    const subtraction = () => {
+        output.innerText = parseFloat(input.value) - parseFloat(input2.value)
+    }
+    const multiply = () => {
+        output.innerText = parseFloat(input.value) * parseFloat(input2.value)
+    }
+    const divide = () => {
+        output.innerText = parseFloat(input.value) / parseFloat(input2.value)
+    }
+
+    //Function for summing all numbers up to the number provided.
+    const sumAll = () => {
+        let inputNum = parseFloat(inputSumAll.value);
+        let total = 0;
+        for (let index = inputNum; index > 0; index--) {
+            total += index;
+
+        }
+        // display total in the output div
+        document.getElementById('outputSumAll').innerHTML = `The sum of all numbers up to ${inputNum} is ${total}.`
+    }
+</script>
+</body>
+
+</html>

@@ -9,6 +9,10 @@ function addLink() {
         url:"week2/index.html"
       },
       {
+        label:"Week2 Group Project",
+        url:"week2/groupCalculator.html"
+      },
+      {
         label:"Week3 notes",
         url:"week3/index.html"
       }
