@@ -15,15 +15,8 @@ function addLink() {
       {
         label:"Week3 Notes",
         url:"week3/index.html"
-      },
-      {
-        label:"Week3 Group Project 1",
-        url:"week3/groupPart1.html"
-      },
-      {
-        label:"Week3 Group Project 2",
-        url:"week3/groupPart2.html"
       }
+
     ]
     for(var i = 0; i < links.length; i++) {
     	var label = links[i].label;
