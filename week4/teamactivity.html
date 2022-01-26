@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Team Activity 4</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+
+  <body>
+    <nav><a href="../index.html">Home</a></nav>
+    <section class="page-content">
+      <h1>Week 04 Team Activity</h1>
+      
+
+      <h2 id="output" class="output">X's turn</h2>
+      <div id="board" class="board">
+        <div data-pos="0" class="box"></div>
+        <div data-pos="1" class="box border ver"></div>
+        <div data-pos="2" class="box"></div>
+        <div data-pos="3" class="box border hor"></div>
+        <div data-pos="4" class="box border"></div>
+        <div data-pos="5" class="box border hor"></div>
+        <div data-pos="6" class="box"></div>
+        <div data-pos="7" class="box border ver"></div>
+        <div data-pos="8" class="box"></div>
+      </div>
+
+      <button id="reset">Reset</button>
+
+      <script>
+        const combinations = [
+          [0, 1, 2],
+          [3, 4, 5],
+          [6, 7, 8],
+          [0, 3, 6],
+          [1, 4, 7],
+          [2, 5, 8],
+          [0, 4, 8],
+          [2, 4, 6],
+        ]
+        const X = 'X'
+        const O = 'O'
+        const board = document.getElementById('board')
+        const boxes = Array.from(board.children)
+        const output = document.getElementById('output')
+        let turn = X
+        let winner = null
+        board.addEventListener('click', (e) => {
+          const pos = e.target.dataset.pos
+          if (0 <= pos && pos <= 8 && !winner && !boxes[pos].textContent) {
+            console.log(pos)
+
+            boxes[pos].textContent = turn
+            if (checkForWinner()) {
+              winner = turn
+              output.textContent = `${winner} wins!`
+            } else if (checkForTie()) {
+              winner = 'tie'
+              output.textContent = `It's a tie!`
+            } else {
+              turn = turn === X ? O : X
+              output.textContent = `${turn}'s turn`
+            }
+          }
+        })
+
+        function checkForWinner() {
+          return combinations.some((combination) =>
+            combination.every((pos) => boxes[pos].textContent === turn)
+          )
+        }
+        function checkForTie() {
+          return boxes.every((box) => {
+            return box.textContent
+          })
+        }
+        function reset() {
+          boxes.forEach((box) => {
+            box.textContent = ''
+          })
+          winner = null
+          turn = X
+          output.textContent = `${turn}'s turn`
+        }
+        const resetButton = document.getElementById('reset')
+        resetButton.addEventListener('click', reset)
+      </script>
+    </section>
+  </body>
+</html>

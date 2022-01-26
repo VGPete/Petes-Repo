@@ -1,0 +1,41 @@
+.board {
+  display: grid;
+  width: 450px;
+  margin: 0 auto;
+  grid-template-columns: repeat(3, 1fr);
+  background-color: #e1e5eb;
+  padding: 1rem;
+}
+.box {
+  height: 150px;
+  color: black;
+  font-size: 3rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.border {
+  border: 2px solid black;
+}
+.hor {
+  border-inline: none;
+}
+.ver {
+  border-block: none;
+}
+.output {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 2rem;
+}
+button {
+  background-color: #e1e5eb;
+  border: none;
+  font-size: 1.4rem;
+  padding: 0.5rem;
+  margin: 0.5rem;
+}
+button:hover {
+  background-color: #d1d5da;
+}
