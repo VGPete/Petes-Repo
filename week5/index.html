@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Week 5 - Pete's Portfolio</title>
+        <link rel="stylesheet" href="css/styles.css">
+        <style>
+        </style>
+    </head>
+    
+    <body>
+        <nav><a href="../index.html">Home</a></nav>
+        <h1 align="center">Week 5 - Pete's Portfolio</h1>
+        <h4>Links</h4>
+        <a href="teamActivity/index.html">Hikes Group Activity</a> 
+        <br>
+        <a href="ToDo/index.html">ToDo (In Progress)</a> 
+        <h4>What I learned</h4>
+        <p>I didnt spend any time working on the Quiz Ninja app since I covered this weeks chapter last week. This gave me more time to work on the ToDo assignment. My team met and did our hikes activity and changed the code up to be better structured. I think we did a good job overall. The team got a bit crazy with the CSS and gave it a strange look. I had to remove the animations though because they were too much. I spent the rest of the time this week working on the ToDo list. It took me a long time to understand the moving parts in the code you provided but once I began to understand it all I started making progress. I also learned that web browsers have a safety feature where they like requests to come from the same site so using modules and trying to run the page locally it doesnt see it as the same site and will block the modules. It took me a very long time to figure this out and had to install the Live Server extension to see my site in real time without the issues. </p>
+        <p>I was able to get the ToDo list running and the X button to the right is now working as a delete button. I had to get some tips from my group when I was running into trouble but I feel that I have a good start and now just need to get the filtering to work correctly.</p>
+        <ul>
+            <li>Web browsers block requests coming from different sites as a safety feature.</li>
+            <li>I learned from my team how crazy you can get with animations and CSS. Sometimes its better to keep things simple or it can come across as too much.</li>
+            <li>I learned that its fairly easy to add animations with CSS which I never knew.</li>
+            <li>I better understand the event listeners after working on the ToDo list this week. I can tell that they are used a lot in modern websites.</li>
+        </ul>
+        <p>My biggest hangup this week was getting the modules to work (not realizing the browser was blocking it when I opened the html file locally. I also ran into some issues getting the event listener to work for the delete button. I couldnt locate the button as a ChildNode and finally I just did it another way where I created the button and then added the event listener to it. The other issue I ran into was that I got the delete feature working but the render wasnt pulling what was in the local storage array. It took me  a while to figure out that I needed to refresh the array with what was in local storage to reflect the deleted ToDO item.</p>
+        <h4>Questions</h4>
+        <ol>
+            <li>Is the X button in the material you provided for the ToDo list a child node of the li? I spent a very long time trying to figure out if it was and how to access it without ever figuring that out. </li>
+        </ol>
+
+    </body>  
+    
+</html>

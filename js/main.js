@@ -19,8 +19,11 @@ function addLink() {
       {
         label:"Week4 Notes",
         url:"week4/index.html"
+      },
+      {
+        label:"Week5 Notes",
+        url:"week5/index.html"
       }
-
     ]
     for(var i = 0; i < links.length; i++) {
     	var label = links[i].label;
