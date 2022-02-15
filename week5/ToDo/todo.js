@@ -21,7 +21,7 @@ function renderList(list, element, toDos) {
       item.innerHTML = `<label><input type="checkbox" checked><strike> ${toDo.content}</strike></label>`;
     }
     else {
-      item.innerHTML = `<label><input type="checkbox"> ${toDo.content}</strike></label>`;
+      item.innerHTML = `<label><input type="checkbox"> ${toDo.content}</label>`;
     }
     item.appendChild(button);
     //Event Listeners for delete button.
