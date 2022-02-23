@@ -1,7 +1,7 @@
 function addLink() {
     const links = [
       {
-        label:"Quiz Ninja Project - Updated Weekly",
+        label:"Quiz Ninja Project",
         url:"quiz/index.html"
       },
       {
@@ -31,6 +31,10 @@ function addLink() {
       {
         label:"Week7 Notes",
         url:"week7/index.html"
+      },
+      {
+        label:"Week8 Notes",
+        url:"week8/index.html"
       },
     ]
     for(var i = 0; i < links.length; i++) {

@@ -1,0 +1,77 @@
+html {
+  --yellow: #f7e11a;
+  color: var(--yellow);
+}
+#cards {
+  display: grid;
+  margin-bottom: 10px;
+  gap: 1rem;
+}
+.grid-item {
+  background-color: rgba(255, 255, 255, 0.8);
+  border: 1px solid rgba(0, 0, 0, 0.8);
+  padding: 20px;
+  font-size: 30px;
+  text-align: center;
+}
+.accordion {
+  background-color: #f2bc1b;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  margin-bottom: 0.75em;
+  font-weight: bold;
+  cursor: pointer;
+  border-radius: 5px;
+  width: -webkit-fill-available;
+  text-align: left;
+  font-size: 15px;
+  transition: 0.4s;
+}
+
+.accordion .active,
+.accordion:hover {
+  background-color: rgb(114, 114, 114);
+}
+
+.accordion:after {
+  content: '\002B';
+  color: #777;
+  font-weight: bold;
+  float: right;
+  margin-left: 5px;
+}
+
+.accordion .active:after {
+  content: '\2212';
+}
+
+.panel {
+  padding: 0 18px;
+  background-color: white;
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.2s ease-out;
+}
+
+summary {
+  font-size: 1.5rem;
+}
+
+#pages {
+  display: flex;
+  gap: 0.5rem;
+  margin-top: 0.5rem;
+}
+button {
+  border: 1px solid var(--yellow);
+  border-radius: 5px;
+  background-color: transparent;
+  color: var(--yellow);
+  padding: 0.3rem 0.6rem;
+}
+
+button:hover {
+  background-color: var(--yellow);
+  color: black;
+}
