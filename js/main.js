@@ -5,6 +5,14 @@ function addLink() {
         url:"quiz/index.html"
       },
       {
+        label:"Project 1: ToDo List",
+        url:"week5/ToDo/index.html"
+      },
+      { 
+        label:"Project 2: Video Game List Maker",
+        url:"listMaker/index.html"
+      },
+      {
         label:"Week1 Notes",
         url:"week1/index.html"
       },
@@ -39,6 +47,10 @@ function addLink() {
       {
         label:"Week9 Notes",
         url:"week9/index.html"
+      },
+      {
+        label:"Week10 Notes",
+        url:"week10/index.html"
       },
     ]
     for(var i = 0; i < links.length; i++) {

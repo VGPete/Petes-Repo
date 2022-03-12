@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Local Quakes</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="style.css" />
+    <script src="index.js" type="module"></script>
+  </head>
+  <body>
+    <nav><a href="../index.html">Home</a></nav>
+    <img
+      src="https://www.interestingfacts.org/wp-content/uploads/2010/11/earthquakes.jpg"
+      alt="earthquake background"
+      class="background"
+    />
+    <main>
+      <h1>Quake List</h1>
+
+      <form id="form">
+        <label>Radius <input type="number" id="radius" placeholder="Radius in KM" /></label>
+        <button id="radiusSubmit">Submit</button>
+      </form>
+
+      <ul id="quakeList"></ul>
+      <ul id="quakeDetails"></ul>
+    </main>
+  </body>
+</html>
