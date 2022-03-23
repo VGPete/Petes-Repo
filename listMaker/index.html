@@ -24,12 +24,21 @@
         </div>
         <div class="activeListName">
             <p>Active List: </p>
-
+            <div id="activeList" class="activeList"></div>
         </div>
     </div>
     <div class="sideBar" id="sideBar"> <!--left side bar menu-->
         <div class="lists">
-            <p>Lists:</p>
+            <div class="listsCreation">
+                <input type="text" id="listName" placeholder="New list name" />
+                <button id="addAList" class="add"> + </button>
+                <p id="listTotal"></p>
+            </div>
+            <div class="listDisplay">
+                <ul class="myLists" id="myListsDisplay">
+
+                </ul>
+            </div>
         </div>
         <div class="platforms">
             <p>Platforms:</p>
@@ -42,7 +51,7 @@
 
     <div class="listBar" id="listBar"> <!--right side list bar-->
 
-        <div class="activeListContents">
+        <div class="activeListContents" id="activeListContents">
             <p>Test </p>
         </div>
 

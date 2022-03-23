@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Week 11</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="style.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+    />
+    <script src="main.js" type="module"></script>
+  </head>
+  <body>
+    <main>
+      <h1>Week 11</h1>
+      <div id="errors" class="errors hidden"></div>
+
+      <ul id="posts"></ul>
+
+      <div class="container" id="loginForm">
+        <div class="screen">
+          <div class="screen__content">
+            <form class="login" id="login">
+              <div class="login__field">
+                <i class="fa fa-user" style="font-size: 24px"></i>
+                <input
+                  type="text"
+                  class="login__input"
+                  name="username"
+                  id="username"
+                  placeholder="User name / Email"
+                />
+              </div>
+              <div class="login__field">
+                <i class="fa fa-lock" style="font-size: 24px"></i>
+                <input
+                  type="password"
+                  class="login__input"
+                  name="password"
+                  id="password"
+                  placeholder="Password"
+                />
+              </div>
+              <button class="button login__submit" id="submit">
+                <span class="button__text">Log In Now</span>
+                <i class="fa fa-toggle-right" style="font-size: 24px; margin-left: 50%"></i>
+              </button>
+            </form>
+          </div>
+          <div class="screen__background">
+            <span class="screen__background__shape screen__background__shape4"></span>
+            <span class="screen__background__shape screen__background__shape3"></span>
+            <span class="screen__background__shape screen__background__shape2"></span>
+            <span class="screen__background__shape screen__background__shape1"></span>
+          </div>
+        </div>
+      </div>
+      <ul id="posts"></ul>
+      <form id="newPostForm">
+        <label for="title">Post Title</label>
+        <input type="text" name="title" id="postTitle" required />
+        <label for="content">Content</label>
+        <input type="text" name="content" id="postContent" required />
+        <button id="addPost" type="button">Add Post</button>
+      </form>
+    </main>
+  </body>
+</html>
