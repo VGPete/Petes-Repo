@@ -1,4 +1,3 @@
-import GameList from "./gameList.js";
 import MyLists from "./myLists.js";
 import {loadContent} from "./contentDisplay.js";
 

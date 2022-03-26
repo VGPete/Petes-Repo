@@ -88,6 +88,9 @@ button:hover {
     list-style-type: none;
     padding: 5px;
 }
+.activeListContents {
+    list-style-type: none;
+}
 
 .myLists {
     padding: 0;
@@ -129,7 +132,6 @@ button:hover {
     left: 20%;
     right: 20%;
     top: 57px;
-    padding-left: 30px;
     padding-bottom: 10px;
     height: 92%;
     width: 60%;
@@ -146,17 +148,37 @@ button:hover {
 .gameItem {
     width: 100%;
     list-style-type: none;
+    display: flex;
+    flex-direction: row;
 }
 
-.addToList {
-    width: 40px;
-    height: 180px;
+.flex1 {
+    flex: 1;
+}
+.flex2 {
+    flex: 4;
+}
+.flex3 {
+    flex: 10;
+}
+
+.addGameButton{
+    margin-top: 5px;
+    margin-left: 5px;
+    margin-right: 15px;
+    margin-bottom: 15px;
+    width: 90%;
+    height: 95%;
+
 }
 
 .thumbnail {
     padding: 5px;
     border-radius: 10px;
     vertical-align: top;
+    margin: 5px;
+    width: 280px;
+    height: 180px;
 }
 
 .gameName {
@@ -164,12 +186,11 @@ button:hover {
     font-size: larger;
     vertical-align: top;
     border-spacing: 5em;
-    padding: 5px;
-    display: inline-block;
+    padding: 5px;;
 }
 
 .listDetails {
-    margin-left: 10%;
+    margin-left: 5%;
     padding: 5px;
 }
 
@@ -204,10 +225,37 @@ button:hover {
     padding: 10px;
     overflow:auto;
     -ms-overflow-style: none;
+    z-index: 1;
 }
+
+.error {
+    background: red;
+    border-top: 2px solid black;
+    border-left: 1px solid black;
+    border-right:  2px solid black;
+    border-bottom:  1px solid black;
+    position: fixed;
+    height: 57px;
+    width: 20%;
+    right: 0;
+    top: 0;
+    padding: 10px;
+    z-index: 2;
+}
+h4 {
+    text-align: center;
+    vertical-align: center;
+    color: black;
+    font-weight: bolder;
+}
+
+
 
 .activeList {
     color: yellow;
+}
+.inactiveList {
+    color: white
 }
 
 .activeListName::-webkit-scrollbar {
@@ -245,7 +293,7 @@ button:hover {
 .add:hover {
     background-color: green;
 }
-.addToList:hover {
+.addGameButton:hover {
     background-color: green;
 }
 

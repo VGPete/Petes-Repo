@@ -22,3 +22,9 @@ export function arrayRemove(array, value) {
     return ele != value;
   });
 }
+
+export function gameRemove(array, value) {
+  return array.filter(function(ele){
+    return ele.id != value;
+  });
+}

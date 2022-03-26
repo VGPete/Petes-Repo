@@ -1,5 +1,5 @@
 import { writeToLS, readFromLS, bindTouch, arrayRemove } from "./utils.js";
-import  GameList from "./gameList.js";
+import Game from "./game.js";
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // private
@@ -20,6 +20,7 @@ function getTotal() {
 function getSelectedId() {
     return selectedId;
 }
+
 
 function setSelectedId(id) {
     selectedId = id;
@@ -42,13 +43,12 @@ function saveLists(key, value) {
 }
 
 function addNewList(listName, key) {
+    let gameList = []
     const newList = {
         id: Date.now(),
         content: listName,
-        gameList: null,
+        list: gameList 
     };
-
-    newList.gameList = new GameList(document.getElementById("activeListContents"), newList.id, newList.content);
 
     myCurrentLists.push(newList);
     writeToLS(key, myCurrentLists);
@@ -74,26 +74,17 @@ function displayLists(list, element, listList) {
         });
         //Event Listener for list selection
         text.addEventListener("click",function() {
-            resetClasses();
             setSelectedId(l.id);
             refreshActiveList()
         });
     
         element.appendChild(item);
+        console.log(l)
       });
+
     
 }
 
-function resetClasses() {
-    let ul = document.getElementById("myListsDisplay").children;
-
-    for(let i = 0; i < ul.length; i++) {
-        if (ul[i].nodeName.toLowerCase() === 'li') {
-            ul[i].className=""
-        }
-    }
-    
-}
 function displayListTotal() {
     const total = document.getElementById("listTotal");
     if (getTotal() === 1) {
@@ -133,6 +124,10 @@ function initializeActiveList() {
         return true;
     }
 
+}
+
+function getCurrent() {
+    return myCurrentLists;
 }
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -175,10 +170,21 @@ export default class myLists {
         this.listLists();
         refreshActiveList()
 
-
     }
     
     getCurrentList() {
         return findList(getSelectedId())
+    }
+
+    getMyCurrentLists() {
+        return getCurrent()
+    }
+
+    getCurrentListId() {
+        return getSelectedId()
+    }
+
+    saveTheList(key, value) {
+        saveLists(key, value)
     }
 }

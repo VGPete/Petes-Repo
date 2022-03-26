@@ -13,4 +13,29 @@ export default class Game {
         this.genres = game.genres;
         this.short_screenshots = game.short_screenshots;
     }
+
+    addGameToList(list, game) {
+        if (this.checkForDuplicate(list, game) === false) {
+            list.list.push(game)
+        }
+    }
+
+    checkForDuplicate(list, game) {
+        let duplicate = false;
+        list.list.forEach(element => {
+            if (element.id === game.id) {
+                duplicate = true;
+                document.getElementById("error").className = "error"
+                document.getElementById("error").innerHTML = "<h4>This list already includes that game!</h4>"
+                setTimeout(function(){
+                    document.getElementById("error").className = ""
+                    document.getElementById("error").innerHTML = ""
+                }, 1500)
+            }
+        });
+        return duplicate;
+    }
+
+
+
 }
