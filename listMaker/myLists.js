@@ -1,5 +1,4 @@
 import { writeToLS, readFromLS, bindTouch, arrayRemove } from "./utils.js";
-import Game from "./game.js";
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // private
@@ -8,6 +7,10 @@ let myCurrentLists = null;
 let listTotal = null;
 let selectedId = 0;
 
+
+////////////////////////////
+// Getters
+////////////////////////////
 function getSavedList(key) {
     myCurrentLists = readFromLS(key) || [];
     return myCurrentLists;
@@ -21,7 +24,20 @@ function getSelectedId() {
     return selectedId;
 }
 
+function findList(id) {
+    let list = myCurrentLists.find( element => {
+        return element.id === id;
+      });
+      return list;
+}
 
+function getCurrent() {
+    return myCurrentLists;
+}
+
+////////////////////////////
+// Setters
+////////////////////////////
 function setSelectedId(id) {
     selectedId = id;
 }
@@ -56,6 +72,9 @@ function addNewList(listName, key) {
     refreshActiveList()
 }
 
+////////////////////////////
+// Display
+////////////////////////////
 function displayLists(list, element, listList) {
     element.innerHTML = "";
     displayListTotal()
@@ -79,10 +98,7 @@ function displayLists(list, element, listList) {
         });
     
         element.appendChild(item);
-        console.log(l)
       });
-
-    
 }
 
 function displayListTotal() {
@@ -103,13 +119,6 @@ function refreshActiveList() {
     }
 }
 
-function findList(id) {
-    let list = myCurrentLists.find( element => {
-        return element.id === id;
-      });
-      return list;
-}
-
 function initializeActiveList() {
 
     if (getSelectedId() === 0 && myCurrentLists[0]){
@@ -124,10 +133,6 @@ function initializeActiveList() {
         return true;
     }
 
-}
-
-function getCurrent() {
-    return myCurrentLists;
 }
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////

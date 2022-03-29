@@ -17,8 +17,8 @@ export async function loadContent(URL, type) {
     const json = await data.json()
     const results = json.results
 
-    console.log(results)
-    displayActiveListGames(myList.getCurrentList(),activeListContents, myList)
+    //console.log(results)
+    refreshGameList(myList.getCurrentList(),activeListContents, myList)
 
     content.innerHTML = ''
     results.forEach((result) => {
@@ -112,54 +112,61 @@ export async function loadContent(URL, type) {
         addButton.addEventListener("click",function() {
 
             let activeList = myList.getCurrentList()
-            console.log(activeList)
             game.addGameToList(activeList, game)
             myList.saveTheList('myLists', myList.getMyCurrentLists())
-            displayActiveListGames(activeList,activeListContents, myList)
+            refreshGameList(myList.getCurrentList(),activeListContents, myList)
 
         });
 
-        
-
-    })
-
-    
-
+        //add list event listener
+        document.getElementById('addAList').addEventListener("click",function() {
+            refreshGameList(myList.getCurrentList(),activeListContents, myList)
+        });
+        //add list delete event listener
+        document.getElementById('addAList').addEventListener("click",function() {
+            refreshGameList(myList.getCurrentList(),activeListContents, myList)
+        });
+    });
+ 
 }
 
 function displayActiveListGames(list, element, myList) {
     element.innerHTML = "";
+    if (list !== undefined) {
+        if (list.list) {
+            totalgames(list.list)
 
-    totalgames(list.list)
+            const displayTotal = document.createElement("li");
+            displayTotal.innerHTML = `<p class="totalGames">(${getGamesTotal()}) Games:</p>`;
 
-    const displayTotal = document.createElement("li");
-    displayTotal.innerHTML = `<p class="totalGames">(${getGamesTotal()}) Games:</p>`;
+            element.appendChild(displayTotal);
 
-    element.appendChild(displayTotal);
+            list.list.forEach(game => {
+                const display = document.createElement("ul");
+                const item = document.createElement("li");
+                let button = document.createElement('button');
+                button.innerHTML="X";
+                button.className="delete";
+                item.innerHTML = `${game.name}`;          
+                item.appendChild(button);
 
-    list.list.forEach(game => {
-        const display = document.createElement("ul");
-        const item = document.createElement("li");
-        let button = document.createElement('button');
-        button.innerHTML="X";
-        button.className="delete";
-        item.innerHTML = `${game.name}`;          
-        item.appendChild(button);
-        //Event Listeners for delete button.
-        button.addEventListener("click",function() {
-        deleteGame(game.id, myList.getMyCurrentLists(), myList.getCurrentListId(), list, element, myList);
-        });
+                //Event Listeners for delete button.
+                button.addEventListener("click",function() {
+                deleteGame(game.id, myList.getMyCurrentLists(), myList.getCurrentListId(), list, element, myList);
+                refreshGameList(myList.getCurrentList(),activeListContents, myList)
+                });
 
-        
-    
-        element.appendChild(item);
-    });
-
-
-}
-
-function displayLists() {
-
+                
+                element.appendChild(display)
+                display.appendChild(item);
+            });
+        } 
+    }
+    else {
+        setGamesTotal(0)
+        const displayTotal = document.createElement("li");
+        displayTotal.innerHTML = `<p class="totalGames">(${getGamesTotal()}) Games:</p>`;
+    }
 }
 
 function getString(array, type) {
@@ -206,7 +213,6 @@ function totalgames(games) {
 }
 
 function deleteGame(gameId, gameList, listId, list, element, myList) {
-    console.log("Delete Game pressed")
     gameList.forEach(list => {
         if(listId === list.id) {
             list.list.forEach(game => {
@@ -217,15 +223,24 @@ function deleteGame(gameId, gameList, listId, list, element, myList) {
         }
     })
     saveLists("myLists", gameList)
-    console.log(gameList)
     displayActiveListGames(list, element, myList)
-    
-    //saveGameList(this.key, arrayRemove(currentGameList, this.findGame(id)));
-    //currentGameList = getSavedList(this.key);
-    //this.listGames();
-
 }
 
 function saveLists(key, value) {
     writeToLS(key, value)
+}
+
+function refreshGameList(list, activeListContents, myList ) {
+    //refresh gamelist 
+    let lists = document.getElementById('myListsDisplay').childNodes
+    lists.forEach((list) => {
+        let clicks = list.childNodes
+        clicks.forEach((click) => {
+            click.addEventListener("click",function() {
+                displayActiveListGames(myList.getCurrentList(),activeListContents, myList)
+            });
+        })
+
+    })
+    displayActiveListGames(myList.getCurrentList(),activeListContents, myList)
 }
