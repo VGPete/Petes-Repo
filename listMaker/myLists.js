@@ -274,9 +274,25 @@ export default class myLists {
 
     newList() {
         const task = document.getElementById("listName");
-        addNewList(task.value, this.key);
-        task.value = "";
-        this.listLists();
+        const verification = /^[\w\-\_\s]+$/
+        console.log(task.value.match(verification))
+        if (task.value.match(verification)) {
+            addNewList(task.value, this.key);
+            document.getElementById("inputError").className="inputErrorHidden"
+            task.value = "";
+            this.listLists();
+        }
+        else {
+            document.getElementById("inputError").className="inputError"
+            document.getElementById("inputError").innerHTML="Invalid list name: characters must only be a-z, 0-9, -, _ and spaces."
+            task.value = "";
+            setTimeout(function(){
+                document.getElementById("inputError").className = "inputErrorHidden"
+                document.getElementById("inputError").innerHTML = ""
+            }, 3000)
+        }
+
+
       }
 
     listLists() {
