@@ -7,6 +7,8 @@ export default class Game {
         this.playtime = game.playtime;
         this.name = game.name;
         this.esrb_rating = game.esrb_rating;
+        this.slug = game.slug;
+
 
         //arrays
         this.platforms = game.platforms;

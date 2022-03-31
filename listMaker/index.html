@@ -13,14 +13,9 @@
         <h2>Video Game List Maker</h2>
         <div class="searchNavigation">
             <p>Search:</p>
-            <input type="text" class="searchBox" placeholder="Game Name" size="50">
+            <input type="text" class="searchBox" placeholder="Game Name" size="50" id="searchInput">
             <button id="searchButton" class="searchButton">Search</button>
 
-        </div>
-        <div class="buttonNavigation">
-            <p>Discover:</p>
-            <button id="mustPlay">Must Play Games</button>
-            <button id="platforms">Platforms</button>
         </div>
         <div id="error"></div>
         <div class="activeListName">
@@ -29,18 +24,10 @@
         </div>
     </div>
     <div class="sideBar" id="sideBar"> <!--left side bar menu-->
-        <div class="lists">
-            <div class="listsCreation">
-                <input type="text" id="listName" placeholder="New list name" />
-                <button id="addAList" class="add"> + </button>
-                <div class="inputErrorHidden" id="inputError"></div>
-                <p id="listTotal"></p>
-            </div>
-            <div class="listDisplay">
-                <ul class="myLists" id="myListsDisplay">
-
-                </ul>
-            </div>
+        <div class="discover">
+            <p>Discover:</p>
+            <button id="mustPlay">Must Play Games</button>
+            <button id="platforms">Platforms</button>
         </div>
         <div class="platforms">
             <p>Platforms:</p>
@@ -52,7 +39,19 @@
     </div>
 
     <div class="listBar" id="listBar"> <!--right side list bar-->
+        <div class="lists">
+            <div class="listsCreation">
+                <input type="text" id="listName" placeholder="Create A List"/>
+                <button id="addAList" class="add"> + </button>
+                <div class="inputErrorHidden" id="inputError"></div>
+                <p id="listTotal"></p>
+            </div>
+            <div class="listDisplay">
+                <ul class="myLists" id="myListsDisplay">
 
+                </ul>
+            </div>
+        </div>
         <div class="activeListContents" id="activeListContents">
             <p>Loading...</p>
         </div>

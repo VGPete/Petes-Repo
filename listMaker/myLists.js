@@ -1,6 +1,10 @@
 import { writeToLS, readFromLS, bindTouch, arrayRemove, gameRemove } from "./utils.js";
 import Game from "./game.js";
 
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// private
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 // Global variables
 const searchBar = document.getElementById('searchBar')
 const sideBar = document.getElementById('sideBar')
@@ -8,14 +12,15 @@ const content = document.getElementById('content')
 const listBar = document.getElementById('listBar')
 const myListsDisplay = document.getElementById('myListsDisplay')
 const activeListContents = document.getElementById('activeListContents')
-let gameListTotal = null;
+const apiKey = 'key=5fcfbcd5288a49eaab7b27d6c0574021'
+const baseURL = 'https://api.rawg.io/api/games/'
 
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////
-// private
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////
 let myCurrentLists = null;
 let listTotal = null;
 let selectedId = 0;
+let currentPage = 1;
+let numPages = 1
+let gameListTotal = null;
 
 
 ////////////////////////////
@@ -95,6 +100,7 @@ function addNewList(listName, key) {
     myCurrentLists.push(newList);
     writeToLS(key, myCurrentLists);
     setSelectedId(newList.id)
+    clearSelection();
     refreshActiveList()
 }
 
@@ -120,11 +126,24 @@ function displayLists(list, element, listList) {
         //Event Listener for list selection
         text.addEventListener("click",function() {
             setSelectedId(l.id);
-            refreshActiveList()
+            clearSelection();
+            refreshActiveList();
+            text.className = "selected";
         });
     
         element.appendChild(item);
       });
+}
+
+function clearSelection() {
+    const display = document.getElementById("myListsDisplay").childNodes
+    display.forEach((li) => {
+        let item = li.childNodes
+        item.forEach((node) => {
+            if(node.nodeName === 'P')
+            node.className = "none"
+        });
+    });
 }
 
 function displayListTotal() {
@@ -143,6 +162,18 @@ function refreshActiveList() {
         let listName = findList(selectedId);
 
         document.getElementById("activeList").innerHTML = `${listName.content}`
+        let name = listName.content
+        const display = document.getElementById("myListsDisplay").childNodes
+        display.forEach((li) => {
+            const child = li.childNodes
+
+            child.forEach((node) => {
+                if(node.textContent === name) {
+                    node.className = "selected"
+                }
+                
+            });
+        });
     }
 }
 
@@ -275,7 +306,6 @@ export default class myLists {
     newList() {
         const task = document.getElementById("listName");
         const verification = /^[\w\-\_\s]+$/
-        console.log(task.value.match(verification))
         if (task.value.match(verification)) {
             addNewList(task.value, this.key);
             document.getElementById("inputError").className="inputErrorHidden"
@@ -318,53 +348,124 @@ export default class myLists {
 
     }
 
+    loadResults(URL, newPage) {
+        this.loadContent(URL, newPage)
+    }
+
+
     // fetches the data and lists it to the screen.
-async loadContent(URL, type) {
-    
-    const data = await fetch(`${URL}`)
-    const json = await data.json()
-    const results = json.results
+    async loadContent(URL, page) {
+        currentPage = page
+        
+        const data = await fetch(`${URL}${page}`)
+        const json = await data.json()
+        const results = json.results
+        numPages = Math.ceil(json.count / 20)
+        console.log(results)
 
-    // initial refresh prior to any changes made
-    refreshGameList()
+        // initial refresh prior to any changes made
+        refreshGameList()
 
-    content.innerHTML = ''
-    results.forEach((result) => {
-        const game = new Game(result);
+        content.innerHTML = '<p class="currentPage">Current Page: ' + currentPage + ' </p>'
 
-        const details = document.createElement('ul')
-        details.className="gameItem"
+        // adds a previous button
+        const prevButton = document.createElement('button')
+        prevButton.textContent = `<`
+        prevButton.addEventListener('click', () => {
+            if (currentPage > 1) {
+            this.loadResults(URL, currentPage - 1)
+            currentPage = currentPage - 1
+            }
+        })
+        content.appendChild(prevButton)
 
-        const flex1 = document.createElement('div')
-        flex1.className = "flex1"
-        const addButton = document.createElement('button')
-        addButton.className = "addGameButton"
-        addButton.innerHTML = "+";
-        addButton.id = "addToListButton"
-        addButton.dataset.id = game.id
-        flex1.appendChild(addButton)
-        details.appendChild(flex1)
+        // adds a page button for each page
+        if(currentPage <= 10) {
+            for (let i = 1; i <= 20; i++) {
+                const button = document.createElement('button')
+                button.textContent = i
+                button.addEventListener('click', () => {
+                currentPage = i
+                this.loadResults(URL, i)
+                })
+                content.appendChild(button)
+            }
+        }
+        else if(currentPage >= 11 && currentPage <= (numPages - 11)) {
+            for (let i = (currentPage -  10); i <= (currentPage + 10); i++) {
+                const button = document.createElement('button')
+                button.textContent = i
+                button.addEventListener('click', () => {
+                currentPage = i
+                this.loadResults(URL, i)
+                })
+                content.appendChild(button)
+            }
+        }
+        else {
+            for (let i = (numPages - 20); i <= 20; i++) {
+                const button = document.createElement('button')
+                button.textContent = i
+                button.addEventListener('click', () => {
+                currentPage = i
+                this.loadResults(URL, i)
+                })
+                content.appendChild(button)
+            }
+        }
 
-        const flex2 = document.createElement('div')
-        flex2.className = "flex2"
-        const background = document.createElement('img')
-        background.src = game.background_image
-        background.className = "thumbnail"
-        flex2.appendChild(background)
-        details.appendChild(flex2)
+        // adds a next button
+        const nextButton = document.createElement('button')
+        nextButton.textContent = `>`
+        nextButton.addEventListener('click', () => {
+            if (currentPage < numPages) {
+            this.loadResults(URL, currentPage + 1)
+            currentPage = currentPage + 1
+            updateCurrentPage(currentPage)
+            }
+        })
+        content.appendChild(nextButton)
 
-        const flex3 = document.createElement('div')
-        flex3.className = "flex3"
-        const name = document.createElement('p')
-        name.innerHTML = `${game.name}`
-        name.className = "gameName"
-        flex3.appendChild(name)
+        results.forEach((result) => {
 
-        const ul = document.createElement('ul')
-        ul.className = "listDetailsHidden"
+            let game = new Game(result);
+            const details = document.createElement('ul')
+            details.className="gameItem"
 
+            const flex1 = document.createElement('div')
+            flex1.className = "flex1"
+            const addButton = document.createElement('button')
+            addButton.className = "addGameButton"
+            addButton.innerHTML = "+";
+            addButton.id = "addToListButton"
+            addButton.dataset.id = game.id
+            flex1.appendChild(addButton)
+            details.appendChild(flex1)
 
-        if (type === 'games') {
+            const flex2 = document.createElement('div')
+            flex2.className = "flex2"
+            const background = document.createElement('img')
+            if (game.background_image === null) {
+                background.src = "./image_missing.jpg"
+            }
+            else {
+                background.src = game.background_image
+            }            
+            background.className = "thumbnail"
+            flex2.appendChild(background)
+            details.appendChild(flex2)
+
+            const flex3 = document.createElement('div')
+            flex3.className = "flex3"
+            const name = document.createElement('p')
+            name.innerHTML = `${game.name}`
+            name.className = "gameName"
+            flex3.appendChild(name)
+
+            const ul = document.createElement('ul')
+            ul.className = "listDetailsHidden"
+
+        
             let esrbRating
             if (game.esrb_rating === null) {
                 esrbRating = "N/A";
@@ -381,56 +482,58 @@ async loadContent(URL, type) {
             {
                 metacritic = game.metacritic + "/100";
             }
-
             ul.innerHTML = `
             <li><b>Release Date:</b>      ${game.released}</li>
             <li><b>Genres:</b>            ${getString(game.genres, "genres")}</li>
             <li><b>Platforms:</b>         ${getString(game.platforms, "platforms")}</li>
             <li><b>Metacritic Rating:</b> ${metacritic}</li>
             <li><b>Average Playtime:</b>  ${game.playtime} hours</li>
-            <li><b>ESRB Rating:</b>       ${esrbRating}</li>`
-        }
-        flex3.appendChild(ul)
-        details.appendChild(flex3)
-        content.appendChild(details)
+            <li><b>ESRB Rating:</b>       ${esrbRating}</li>       
+            `
+            
+            flex3.appendChild(ul)
+            details.appendChild(flex3)
+            content.appendChild(details)
 
+            
+
+            //event listeners
+            background.addEventListener("click",function() {
+                if (ul.className === "listDetailsHidden") {
+                    ul.className = "listDetails"
+                }
+                else {
+                    ul.className = "listDetailsHidden"
+                }
+            });
+            name.addEventListener("click",function() {
+                if (ul.className === "listDetailsHidden") {
+                    ul.className = "listDetails"
+                }
+                else {
+                    ul.className = "listDetailsHidden"
+                }
+            });
+
+            //active list display
+            addButton.addEventListener("click",function() {
+                game.addGameToList(findList(getSelectedId()), game)
+                saveLists('myLists', getCurrentList())
+                refreshGameList()
+
+            });
+
+            //add list event listener
+            document.getElementById('addAList').addEventListener("click",function() {
+                refreshGameList()
+            });
+            //add list delete event listener
+            document.getElementById('addAList').addEventListener("click",function() {
+                refreshGameList()
+            });
+        });
+
+        // baseURL + 'games/' + slug + '?' + apiKey
         
-
-        //event listeners
-        background.addEventListener("click",function() {
-            if (ul.className === "listDetailsHidden") {
-                ul.className = "listDetails"
-            }
-            else {
-                ul.className = "listDetailsHidden"
-            }
-        });
-        name.addEventListener("click",function() {
-            if (ul.className === "listDetailsHidden") {
-                ul.className = "listDetails"
-            }
-            else {
-                ul.className = "listDetailsHidden"
-            }
-        });
-
-        //active list display
-        addButton.addEventListener("click",function() {
-            game.addGameToList(findList(getSelectedId()), game)
-            saveLists('myLists', getCurrentList())
-            refreshGameList()
-
-        });
-
-        //add list event listener
-        document.getElementById('addAList').addEventListener("click",function() {
-            refreshGameList()
-        });
-        //add list delete event listener
-        document.getElementById('addAList').addEventListener("click",function() {
-            refreshGameList()
-        });
-    });
-    
-}
+    }
 }

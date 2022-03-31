@@ -7,6 +7,10 @@
     margin: 0;
 }
 
+body {
+    background: rgb(60, 64, 66);
+}
+
 .searchBar {
     background: rgb(46, 46, 46);
     border-bottom: 1px solid black;
@@ -60,10 +64,15 @@ button:hover {
 }
 
 .lists {
+    background: rgb(60, 64, 66);
     top: 57px;
-    border: 1px solid black;
+    border-top: 1px solid black;
+    border-left: 1px solid black;
+    border-right:  2px solid black;
+    border-bottom:  1px solid black;
     height: 195px;
     width: 20%;
+    right: 0px;
     position: fixed;
     overflow:auto;
     -ms-overflow-style: none;
@@ -72,10 +81,10 @@ button:hover {
 .listsCreation {
     top: 57px;
     margin: 0%;
-    height: 45px;
+
     width: 20%;
     position: fixed;
-    padding: 5px;
+    padding: 10px;
 }
 
 .listDisplay {
@@ -86,10 +95,12 @@ button:hover {
     -ms-overflow-style: none;
     overflow:auto;
     list-style-type: none;
-    padding: 5px;
+    padding: 10px;
 }
 .activeListContents {
     list-style-type: none;
+    top: 252px;
+    position: fixed;
 }
 
 .myLists {
@@ -290,10 +301,10 @@ h4 {
     border-right:  2px solid black;
     border-bottom:  2px solid black;
     position: fixed;
-    height: 100%;
+    height: 64.55%;
     width: 20%;
     right: 0;
-    top: 57px;
+    top: 252px;
     padding: 10px;
     overflow:auto;
     -ms-overflow-style: none;
@@ -327,4 +338,27 @@ h4 {
     flex-direction: row;
 }
 
+.currentPage {
+    float: left;
+    margin-right: 2%;
+}
 
+.discover {
+    background: rgb(60, 64, 66);
+    top: 57px;
+    border-top: 1px solid black;
+    border-left: 2px solid black;
+    border-right:  1px solid black;
+    border-bottom:  1px solid black;
+    height: 195px;
+    width: 20%;
+    left: 0;
+    position: fixed;
+    padding: 10px;
+}
+
+.selected {
+    border: 1px solid yellow;
+    padding: 3px;
+    border-radius: 5px;
+}
