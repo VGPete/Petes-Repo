@@ -236,27 +236,32 @@ function displayActiveListGames() {
 function getString(array, type) {
     let string = "";
 
-    for (let i=0; i < array.length; i++) {
-        if (type === "genres") {
-            if (i === array.length - 1) {
-                string += array[i].name;
+    if (array) {
+        for (let i=0; i < array.length; i++) {
+            if (type === "genres") {
+                if (i === array.length - 1) {
+                    string += array[i].name;
+                }
+                else {
+                    string += array[i].name + ", ";
+                }
             }
             else {
-                string += array[i].name + ", ";
-            }
-        }
-        else {
-            if (i === array.length - 1) {
-                string += array[i].platform.name;
-            }
-            else {
-                string += array[i].platform.name + ", ";
+                if (i === array.length - 1) {
+                    string += array[i].platform.name;
+                }
+                else {
+                    string += array[i].platform.name + ", ";
+                }
+
             }
 
         }
-
+        return string;
     }
-    return string;
+    else {
+        return "N/A"
+    }
 }
 
 function deleteGame(gameId) {
@@ -380,8 +385,8 @@ export default class myLists {
         content.appendChild(prevButton)
 
         // adds a page button for each page
-        if(currentPage <= 10) {
-            for (let i = 1; i <= 20; i++) {
+        if(currentPage <= 5 && numPages > 10) {
+            for (let i = 1; i < 11; i++) {
                 const button = document.createElement('button')
                 button.textContent = i
                 button.addEventListener('click', () => {
@@ -391,8 +396,20 @@ export default class myLists {
                 content.appendChild(button)
             }
         }
-        else if(currentPage >= 11 && currentPage <= (numPages - 11)) {
-            for (let i = (currentPage -  10); i <= (currentPage + 10); i++) {
+        else if(currentPage <= 5 && numPages < 10) {
+            for (let i = 1; i < numPages; i++) {
+                const button = document.createElement('button')
+                button.textContent = i
+                button.addEventListener('click', () => {
+                currentPage = i
+                this.loadResults(URL, i)
+                })
+                content.appendChild(button)
+            }
+        }
+
+        else if(currentPage > 5 && currentPage <= (numPages - 5)) {
+            for (let i = (currentPage -  5); i < (currentPage + 6); i++) {
                 const button = document.createElement('button')
                 button.textContent = i
                 button.addEventListener('click', () => {
@@ -403,7 +420,7 @@ export default class myLists {
             }
         }
         else {
-            for (let i = (numPages - 20); i <= 20; i++) {
+            for (let i = (numPages - 5); i < numPages + 1; i++) {
                 const button = document.createElement('button')
                 button.textContent = i
                 button.addEventListener('click', () => {

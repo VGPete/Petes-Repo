@@ -13,8 +13,12 @@ body {
     background:#262626;
 }
 
+h2 {
+    color: yellow;
+}
+
 .searchBar {
-    background: rgb(46, 46, 46);
+    background: rgb(60, 64, 66);
     border-bottom: 1px solid black;
     border-top: 2px solid black;
     border-left: 2px solid black;
@@ -24,6 +28,7 @@ body {
     width: 100%;
     height: 57px;
     display: flex;
+    padding: 5px;
 }
 
 .searchNavigation {
@@ -53,7 +58,7 @@ button:hover {
   }
 
 .sideBar {
-    background: rgb(60, 64, 66);
+    background: rgb(60, 60, 60);
     border-left: 2px solid black;
     border-right:  1px solid black;
     border-bottom:  2px solid black;
@@ -128,6 +133,7 @@ button:hover {
     width: 20%;
     padding: 10px;
     overflow:auto;
+    left: 0;
     -ms-overflow-style: none;
 }
 
@@ -136,7 +142,7 @@ button:hover {
 }
 
 .content {
-    background: rgb(56, 57, 58);
+    background: rgb(46, 46, 46);
     border-left: 1px solid black;
     border-right:  1px solid black;
     border-bottom:  2px solid black;
@@ -346,7 +352,6 @@ h4 {
 }
 
 .discover {
-    background: rgb(60, 64, 66);
     top: 57px;
     border-top: 1px solid black;
     border-left: 2px solid black;
@@ -365,8 +370,13 @@ h4 {
     border-radius: 5px;
 }
 
+.explore, .platforms {
+    list-style-type: none;
+}
 
-
+.explore li, .platforms li {
+    padding: 3px;
+}
 
 
 
