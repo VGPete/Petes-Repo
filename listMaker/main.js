@@ -9,7 +9,7 @@ const myList = new MyLists(myListsDisplay, 'myLists');
 // this function sets up the page.
 const setup = () => {
     //myList.loadContent(baseURL + 'games?' + apiKey + '&page_size=20&page=', 1);
-    myList.loadContent(baseURL + 'games?' + apiKey + '&ordering=-metacritic&dates=2022-01-01,2022-12-31&page_size=20&page=', 1);
+    myList.loadContent(baseURL + 'games?' + apiKey + '&ordering=released&dates=2022-01-01,2022-12-31&parent_platforms=2,3,7&page_size=20&page=', 1);
 
     sidebar()    
 }

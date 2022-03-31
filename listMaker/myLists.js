@@ -6,14 +6,8 @@ import Game from "./game.js";
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 // Global variables
-const searchBar = document.getElementById('searchBar')
-const sideBar = document.getElementById('sideBar')
 const content = document.getElementById('content')
-const listBar = document.getElementById('listBar')
-const myListsDisplay = document.getElementById('myListsDisplay')
 const activeListContents = document.getElementById('activeListContents')
-const apiKey = 'key=5fcfbcd5288a49eaab7b27d6c0574021'
-const baseURL = 'https://api.rawg.io/api/games/'
 
 let myCurrentLists = null;
 let listTotal = null;
