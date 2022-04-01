@@ -15,6 +15,7 @@ let selectedId = 0;
 let currentPage = 1;
 let numPages = 1
 let gameListTotal = null;
+let customListActive = false;
 
 
 ////////////////////////////
@@ -155,7 +156,7 @@ function refreshActiveList() {
     if (initializeActiveList()) {
         let listName = findList(selectedId);
 
-        document.getElementById("activeList").innerHTML = `${listName.content}`
+        document.getElementById("activeList").innerHTML = `View: ${listName.content}`
         let name = listName.content
         const display = document.getElementById("myListsDisplay").childNodes
         display.forEach((li) => {
@@ -351,9 +352,227 @@ export default class myLists {
         this.loadContent(URL, newPage)
     }
 
+    loadActiveListResults(list, page) {
+        console.log("loadactivelistresults activated")
+        this.loadActiveList(list, page)
+    }
+
+    findCurrentList() {
+        refreshActiveList();
+        let list = getCurrentList()
+        for (let i = 0; i < list.length; i++) {
+            if(list[i].id === getSelectedId()) {
+                return list[i];
+            }
+        }
+
+
+    }
+
+    loadActiveList(list, page) {
+        console.log(list)
+
+        
+        customListActive =  true;
+        currentPage = page
+
+        numPages = Math.ceil(list.length / 20)
+        const activeListDisplay = document.getElementById('activeListContents').childNodes;
+        activeListDisplay.forEach((child1)=> {
+            if (child1.nodeName === 'UL') {
+                const activeListDisplay2 = child1.childNodes
+                activeListDisplay2.forEach((child2)=>{
+                    if (child2.nodeName === 'LI') {
+                        const activeListDisplay3 = child2.childNodes
+                        activeListDisplay3.forEach((child3)=> {
+                            if (child3.nodeName === 'BUTTON') {
+                                child3.addEventListener("click", () => {
+                                    console.log("button Clicked")
+                                    if (customListActive === true) {
+                                        console.log("active list is true")
+                                        this.loadActiveListResults(this.findCurrentList().list, currentPage)
+                                    }
+                                });
+
+                            }
+                        })
+                    }
+
+                })
+            }
+
+        })
+
+        content.innerHTML = '<p class="currentPage">Current Page: ' + currentPage + ' </p>'
+
+        // adds a previous button
+        const previousButton = document.createElement('button')
+        previousButton.textContent = `<`
+        previousButton.addEventListener('click', () => {
+            if (currentPage > 1) {
+                let newPage = currentPage - 1
+                this.loadActiveListResults(list, newPage)
+            }
+        })
+        content.appendChild(previousButton)
+
+        // adds a page button for each page
+        if(currentPage <= 5 && numPages > 10) {
+            for (let i = 1; i < 11; i++) {
+                const pageButton = document.createElement('button')
+                pageButton.textContent = i
+                pageButton.addEventListener('click', () => {
+                currentPage = i
+                this.loadActiveListResults(list, i)
+                })
+                content.appendChild(pageButton)
+            }
+        }
+        else if(currentPage <= 5 && numPages < 10) {
+            for (let i = 1; i < numPages + 1; i++) {
+                const pageButton = document.createElement('button')
+                pageButton.textContent = i
+                pageButton.addEventListener('click', () => {
+                currentPage = i
+                this.loadActiveListResults(list, i)
+                })
+                content.appendChild(pageButton)
+            }
+        }
+
+        else if(currentPage > 5 && currentPage <= (numPages - 5)) {
+            for (let i = (currentPage -  5); i < (currentPage + 6); i++) {
+                const pageButton = document.createElement('button')
+                pageButton.textContent = i
+                pageButton.addEventListener('click', () => {
+                currentPage = i
+                this.loadActiveListResults(list, i)
+                })
+                content.appendChild(pageButton)
+            }
+        }
+        else {
+            for (let i = (numPages - 5); i < numPages + 1; i++) {
+                const pageButton = document.createElement('button')
+                pageButton.textContent = i
+                pageButton.addEventListener('click', () => {
+                currentPage = i
+                this.loadActiveListResults(list, i)
+                })
+                content.appendChild(pageButton)
+            }
+        }
+
+        // adds a next button
+        const nxtButton = document.createElement('button')
+        nxtButton.textContent = `>`
+        nxtButton.addEventListener('click', () => {
+            if (currentPage < numPages) {
+                let newPage = currentPage+1
+            this.loadActiveListResults(list, newPage)
+            }
+        })
+        content.appendChild(nxtButton)
+        
+        // figure out top & bottom and account for total array length then set the for loop to fit that range for pages.
+        let pageTop = currentPage * 20;
+        let pageBottom = pageTop - 20;
+        if (pageTop > list.length) {
+            pageTop = list.length;
+        }
+
+        for (let i = pageBottom; i < pageTop ; i++) {
+            const game = list[i]
+
+
+            const details = document.createElement('ul')
+            details.className="gameItem"
+
+
+
+            const flex2 = document.createElement('div')
+            flex2.className = "flex2"
+            const background = document.createElement('img')
+            if (game.background_image === null) {
+                background.src = "./image_missing.jpg"
+            }
+            else {
+                background.src = game.background_image
+            }            
+            background.className = "thumbnail"
+            flex2.appendChild(background)
+            details.appendChild(flex2)
+
+            const flex3 = document.createElement('div')
+            flex3.className = "flex3"
+            const name = document.createElement('p')
+            name.innerHTML = `${game.name}`
+            name.className = "gameName"
+            flex3.appendChild(name)
+
+            const ul = document.createElement('ul')
+            ul.className = "listDetailsHidden"
+
+        
+            let esrbRating
+            if (game.esrb_rating === null) {
+                esrbRating = "N/A";
+            }
+            else
+            {
+                esrbRating = game.esrb_rating.name;
+            }
+            let metacritic
+            if (game.metacritic === null) {
+                metacritic = "N/A";
+            }
+            else
+            {
+                metacritic = game.metacritic + "/100";
+            }
+            ul.innerHTML = `
+            <li><b>Release Date:</b>      ${game.released}</li>
+            <li><b>Genres:</b>            ${getString(game.genres, "genres")}</li>
+            <li><b>Platforms:</b>         ${getString(game.platforms, "platforms")}</li>
+            <li><b>Metacritic Rating:</b> ${metacritic}</li>
+            <li><b>Average Playtime:</b>  ${game.playtime} hours</li>
+            <li><b>ESRB Rating:</b>       ${esrbRating}</li>       
+            `
+            
+            flex3.appendChild(ul)
+            details.appendChild(flex3)
+            content.appendChild(details)
+
+            
+
+            //event listeners
+            background.addEventListener("click",function() {
+                if (ul.className === "listDetailsHidden") {
+                    ul.className = "listDetails"
+                }
+                else {
+                    ul.className = "listDetailsHidden"
+                }
+            });
+            name.addEventListener("click",function() {
+                if (ul.className === "listDetailsHidden") {
+                    ul.className = "listDetails"
+                }
+                else {
+                    ul.className = "listDetailsHidden"
+                }
+            });
+
+            //add list event listener
+            document.getElementById('addAList').addEventListener("click",function() {
+                refreshGameList()
+            });
+        };        
+    }
 
     // fetches the data and lists it to the screen.
     async loadContent(URL, page) {
+        customListActive = false;
         currentPage = page
         
         const data = await fetch(`${URL}${page}`)
@@ -372,8 +591,8 @@ export default class myLists {
         prevButton.textContent = `<`
         prevButton.addEventListener('click', () => {
             if (currentPage > 1) {
-            this.loadResults(URL, currentPage - 1)
-            currentPage = currentPage - 1
+                let newPage = currentPage-1;
+            this.loadResults(URL, newPage)
             }
         })
         content.appendChild(prevButton)
@@ -430,9 +649,8 @@ export default class myLists {
         nextButton.textContent = `>`
         nextButton.addEventListener('click', () => {
             if (currentPage < numPages) {
-            this.loadResults(URL, currentPage + 1)
-            currentPage = currentPage + 1
-            updateCurrentPage(currentPage)
+                let newPage = currentPage + 1;
+            this.loadResults(URL, newPage)
             }
         })
         content.appendChild(nextButton)
@@ -538,13 +756,6 @@ export default class myLists {
             document.getElementById('addAList').addEventListener("click",function() {
                 refreshGameList()
             });
-            //add list delete event listener
-            document.getElementById('addAList').addEventListener("click",function() {
-                refreshGameList()
-            });
-        });
-
-        // baseURL + 'games/' + slug + '?' + apiKey
-        
+        });        
     }
 }

@@ -12,6 +12,10 @@ const setup = () => {
     myList.loadContent(baseURL + 'games?' + apiKey + '&ordering=released&dates=2022-01-01,2022-12-31&parent_platforms=2,3,7&page_size=20&page=', 1);
 
     sidebar()    
+
+    document.getElementById("activeList").addEventListener("click",function() {
+        myList.loadActiveList(myList.findCurrentList().list,1)
+    })
 }
 
 function sidebar() {
@@ -20,6 +24,7 @@ function sidebar() {
         let input = document.getElementById("searchInput").value
         let search = 'https://api.rawg.io/api/games?' + apiKey + '&search=' + input + '&ordering=-metacritic&search_exact=true&page_size=20&page='
         myList.loadContent(search, 1);
+        document.getElementById("searchInput").value = "";
     })
 
     // explore list structure
