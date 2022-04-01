@@ -7,6 +7,7 @@ import Game from "./game.js";
 
 // Global variables
 const content = document.getElementById('content')
+const pages = document.getElementById('pages')
 const activeListContents = document.getElementById('activeListContents')
 
 let myCurrentLists = null;
@@ -370,6 +371,7 @@ export default class myLists {
     }
 
     loadActiveList(list, page) {
+        content.innerHTML=''
         console.log(list)
 
         
@@ -377,33 +379,8 @@ export default class myLists {
         currentPage = page
 
         numPages = Math.ceil(list.length / 20)
-        const activeListDisplay = document.getElementById('activeListContents').childNodes;
-        activeListDisplay.forEach((child1)=> {
-            if (child1.nodeName === 'UL') {
-                const activeListDisplay2 = child1.childNodes
-                activeListDisplay2.forEach((child2)=>{
-                    if (child2.nodeName === 'LI') {
-                        const activeListDisplay3 = child2.childNodes
-                        activeListDisplay3.forEach((child3)=> {
-                            if (child3.nodeName === 'BUTTON') {
-                                child3.addEventListener("click", () => {
-                                    console.log("button Clicked")
-                                    if (customListActive === true) {
-                                        console.log("active list is true")
-                                        this.loadActiveListResults(this.findCurrentList().list, currentPage)
-                                    }
-                                });
-
-                            }
-                        })
-                    }
-
-                })
-            }
-
-        })
-
-        content.innerHTML = '<p class="currentPage">Current Page: ' + currentPage + ' </p>'
+ 
+        pages.innerHTML = '<p class="currentPage">Current Page: ' + currentPage + ' </p>'
 
         // adds a previous button
         const previousButton = document.createElement('button')
@@ -414,7 +391,7 @@ export default class myLists {
                 this.loadActiveListResults(list, newPage)
             }
         })
-        content.appendChild(previousButton)
+        pages.appendChild(previousButton)
 
         // adds a page button for each page
         if(currentPage <= 5 && numPages > 10) {
@@ -425,7 +402,7 @@ export default class myLists {
                 currentPage = i
                 this.loadActiveListResults(list, i)
                 })
-                content.appendChild(pageButton)
+                pages.appendChild(pageButton)
             }
         }
         else if(currentPage <= 5 && numPages < 10) {
@@ -436,7 +413,7 @@ export default class myLists {
                 currentPage = i
                 this.loadActiveListResults(list, i)
                 })
-                content.appendChild(pageButton)
+                pages.appendChild(pageButton)
             }
         }
 
@@ -448,7 +425,7 @@ export default class myLists {
                 currentPage = i
                 this.loadActiveListResults(list, i)
                 })
-                content.appendChild(pageButton)
+                pages.appendChild(pageButton)
             }
         }
         else {
@@ -459,7 +436,7 @@ export default class myLists {
                 currentPage = i
                 this.loadActiveListResults(list, i)
                 })
-                content.appendChild(pageButton)
+                pages.appendChild(pageButton)
             }
         }
 
@@ -472,7 +449,7 @@ export default class myLists {
             this.loadActiveListResults(list, newPage)
             }
         })
-        content.appendChild(nxtButton)
+        pages.appendChild(nxtButton)
         
         // figure out top & bottom and account for total array length then set the for loop to fit that range for pages.
         let pageTop = currentPage * 20;
@@ -568,10 +545,36 @@ export default class myLists {
                 refreshGameList()
             });
         };        
+        const activeListDisplay = document.getElementById('activeListContents').childNodes;
+        activeListDisplay.forEach((child1)=> {
+            if (child1.nodeName === 'UL') {
+                const activeListDisplay2 = child1.childNodes
+                activeListDisplay2.forEach((child2)=>{
+                    if (child2.nodeName === 'LI') {
+                        const activeListDisplay3 = child2.childNodes
+                        activeListDisplay3.forEach((child3)=> {
+                            if (child3.nodeName === 'BUTTON') {
+                                child3.addEventListener("click", () => {
+                                    console.log("button Clicked")
+                                    if (customListActive === true) {
+                                        console.log("active list is true")
+                                        this.loadActiveListResults(this.findCurrentList().list, currentPage)
+                                    }
+                                });
+
+                            }
+                        })
+                    }
+
+                })
+            }
+
+        })
     }
 
     // fetches the data and lists it to the screen.
     async loadContent(URL, page) {
+        content.innerHTML=''
         customListActive = false;
         currentPage = page
         
@@ -584,7 +587,7 @@ export default class myLists {
         // initial refresh prior to any changes made
         refreshGameList()
 
-        content.innerHTML = '<p class="currentPage">Current Page: ' + currentPage + ' </p>'
+        pages.innerHTML = '<p class="currentPage">Current Page: ' + currentPage + ' </p>'
 
         // adds a previous button
         const prevButton = document.createElement('button')
@@ -595,7 +598,7 @@ export default class myLists {
             this.loadResults(URL, newPage)
             }
         })
-        content.appendChild(prevButton)
+        pages.appendChild(prevButton)
 
         // adds a page button for each page
         if(currentPage <= 5 && numPages > 10) {
@@ -606,7 +609,7 @@ export default class myLists {
                 currentPage = i
                 this.loadResults(URL, i)
                 })
-                content.appendChild(button)
+                pages.appendChild(button)
             }
         }
         else if(currentPage <= 5 && numPages < 10) {
@@ -617,7 +620,7 @@ export default class myLists {
                 currentPage = i
                 this.loadResults(URL, i)
                 })
-                content.appendChild(button)
+                pages.appendChild(button)
             }
         }
 
@@ -629,7 +632,7 @@ export default class myLists {
                 currentPage = i
                 this.loadResults(URL, i)
                 })
-                content.appendChild(button)
+                pages.appendChild(button)
             }
         }
         else {
@@ -640,7 +643,7 @@ export default class myLists {
                 currentPage = i
                 this.loadResults(URL, i)
                 })
-                content.appendChild(button)
+                pages.appendChild(button)
             }
         }
 
@@ -653,7 +656,7 @@ export default class myLists {
             this.loadResults(URL, newPage)
             }
         })
-        content.appendChild(nextButton)
+        pages.appendChild(nextButton)
 
         results.forEach((result) => {
 

@@ -10,11 +10,14 @@
 
   <body>
     <div class="searchBar" id="searchBar"> <!--Top Search menu-->
-        <h2>Video Game List Maker</h2>
+        <div class="title">
+            <h2>Video Game List Maker</h2>
+        </div>
+        
         <div class="searchNavigation">
-            <p>Search:</p>
             <input type="text" class="searchBox" placeholder="Game Name" size="50" id="searchInput">
             <button id="searchButton" class="searchButton">Search</button>
+            <div id="pages" class="pages"></div>
 
         </div>
         <div id="error"></div>

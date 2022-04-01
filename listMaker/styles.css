@@ -30,9 +30,18 @@ h2 {
     display: flex;
     padding: 5px;
 }
+.title {
+    flex: 1.5;
+}
+
+.pages {
+    margin-top: 5px;
+    width: 100%;
+}
 
 .searchNavigation {
-margin-left: 5%;
+    margin-left: 5%;
+    flex: 4;
 }
 
 .buttonNavigation {
@@ -260,6 +269,7 @@ button:hover {
     top: 0;
     padding: 10px;
     z-index: 2;
+    flex: 1
 }
 
 .inputError {
