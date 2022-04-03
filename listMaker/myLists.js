@@ -192,11 +192,10 @@ function initializeActiveList() {
 function displayActiveListGames() {
     const list = findList(getSelectedId());
     let element = activeListContents
-    element.innerHTML = "";
     if (list !== undefined) {
         if (list.list) {
             totalgames(list.list)
-
+            element.innerHTML = "";
             const displayTotal = document.createElement("li");
             displayTotal.innerHTML = `<p class="totalGames">(${getGamesTotal()}) Games:</p>`;
 
@@ -576,7 +575,7 @@ export default class myLists {
 
     // fetches the data and lists it to the screen.
     async loadContent(URL, page) {
-        content.innerHTML=''
+
         customListActive = false;
         currentPage = page
         
@@ -659,7 +658,7 @@ export default class myLists {
             }
         })
         pages.appendChild(nextButton)
-
+        content.innerHTML=''
         results.forEach((result) => {
 
             let game = new Game(result);
