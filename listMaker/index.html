@@ -15,52 +15,52 @@
         </div>
         
         <div class="searchNavigation">
-            <input type="text" class="searchBox" placeholder="Game Name" size="50" id="searchInput">
+            <input type="text" class="searchBox" placeholder=" Find games" size="50" id="searchInput">
             <button id="searchButton" class="searchButton">Search</button>
             <div id="pages" class="pages"></div>
 
         </div>
         <div id="error"></div>
-        <div class="activeListName">
-            <p>Active List: </p>
-            <button id="activeList" class="activeList"></button>
-        </div>
     </div>
-    <div class="sideBar" id="sideBar"> <!--left side bar menu-->
-        <div class="discover" id="discover">
-            <p>Explore:</p>
-        </div>
-        <div class="platforms" id="platforms">
-            <p>Platforms:</p>
-        </div>
-    </div>
-
-    <div class="content" id="content"> <!--center content section-->
-        <div class="ring">Loading
-            <span></span>
-          </div>
-    </div>
-
-    <div class="listBar" id="listBar"> <!--right side list bar-->
-        <div class="lists">
-            <div class="listsCreation">
-                <input type="text" id="listName" placeholder="Create A List"/>
-                <button id="addAList" class="add"> + </button>
-                <div class="inputErrorHidden" id="inputError"></div>
-                <p id="listTotal"></p>
+    <div class="displayBox">
+        <div class="sideBar" id="sideBar"> <!--left side bar menu-->
+            <div class="discover" id="discover">
+                <p>Explore:</p>
             </div>
-            <div class="listDisplay">
-                <ul class="myLists" id="myListsDisplay">
-                </ul>
+            <div class="platforms" id="platforms">
+                <p>Platforms:</p>
             </div>
         </div>
-        <div class="activeListContents" id="activeListContents">
+
+        <div class="content" id="content"> <!--center content section-->
             <div class="ring">Loading
                 <span></span>
-              </div>
+            </div>
         </div>
 
-    </div>
+        <div class="listBar" id="listBar"> <!--right side list bar-->
+            <div class="lists">
+                <div class="listsCreation">
+                    <input type="text" class="listNameInput" id="listName" placeholder=" Create A List"/>
+                    <button id="addAList" class="add"> + </button>
+                    <div class="inputErrorHidden" id="inputError"></div>
+                    <p id="listTotal"></p>
+                </div>
+                <div class="listDisplay">
+                    <ul class="myLists" id="myListsDisplay">
+                    </ul>
+                </div>
+            </div>
+            <div class="activeListName">
+                <button id="activeList" class="activeList"></button>
+            </div>
+            <div class="activeListContents" id="activeListContents">
+                <div class="ring">Loading
+                    <span></span>
+                </div>
+            </div>
 
+        </div>
+    </div>
   </body>
 </html>

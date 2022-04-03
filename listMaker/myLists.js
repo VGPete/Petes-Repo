@@ -109,10 +109,11 @@ function displayLists(list, element, listList) {
     list.forEach(l => {
         let item = document.createElement("li");
         let button = document.createElement('button');
-        let text = document.createElement('p');
+        let text = document.createElement('button');
         button.innerHTML="X";
         button.className="delete";
         text.innerHTML=`${l.content}`;
+        text.className="none";
         item.appendChild(text);       
         item.appendChild(button);
         //Event Listener for delete button.
@@ -121,6 +122,7 @@ function displayLists(list, element, listList) {
         });
         //Event Listener for list selection
         text.addEventListener("click",function() {
+            console.log("event fired for click")
             setSelectedId(l.id);
             clearSelection();
             refreshActiveList();
@@ -136,8 +138,7 @@ function clearSelection() {
     display.forEach((li) => {
         let item = li.childNodes
         item.forEach((node) => {
-            if(node.nodeName === 'P')
-            node.className = "none"
+            item[0].className = "none"
         });
     });
 }
@@ -157,7 +158,7 @@ function refreshActiveList() {
     if (initializeActiveList()) {
         let listName = findList(selectedId);
 
-        document.getElementById("activeList").innerHTML = `View: ${listName.content}`
+        document.getElementById("activeList").innerHTML = `Expand This List: ${listName.content}`
         let name = listName.content
         const display = document.getElementById("myListsDisplay").childNodes
         display.forEach((li) => {
@@ -200,14 +201,15 @@ function displayActiveListGames() {
             displayTotal.innerHTML = `<p class="totalGames">(${getGamesTotal()}) Games:</p>`;
 
             element.appendChild(displayTotal);
-
+            const display = document.createElement("ul");
             list.list.forEach(game => {
-                const display = document.createElement("ul");
                 const item = document.createElement("li");
+                const text = document.createElement("p");
                 let button = document.createElement('button');
                 button.innerHTML="X";
                 button.className="delete";
-                item.innerHTML = `${game.name}`;          
+                text.innerHTML = `${game.name}`;   
+                item.appendChild(text);       
                 item.appendChild(button);
 
                 //Event Listeners for delete button.
@@ -216,9 +218,10 @@ function displayActiveListGames() {
                 refreshGameList()
                 });
 
-                element.appendChild(display)
+
                 display.appendChild(item);
             });
+            element.appendChild(display)
         } 
     }
     else {
@@ -354,7 +357,6 @@ export default class myLists {
     }
 
     loadActiveListResults(list, page) {
-        console.log("loadactivelistresults activated")
         this.loadActiveList(list, page)
     }
 
@@ -672,8 +674,7 @@ export default class myLists {
             addButton.id = "addToListButton"
             addButton.dataset.id = game.id
             flex1.appendChild(addButton)
-            details.appendChild(flex1)
-
+            
             const flex2 = document.createElement('div')
             flex2.className = "flex2"
             const background = document.createElement('img')
@@ -685,7 +686,7 @@ export default class myLists {
             }            
             background.className = "thumbnail"
             flex2.appendChild(background)
-            details.appendChild(flex2)
+            
 
             const flex3 = document.createElement('div')
             flex3.className = "flex3"
@@ -723,8 +724,11 @@ export default class myLists {
             <li><b>ESRB Rating:</b>       ${esrbRating}</li>       
             `
             
+
             flex3.appendChild(ul)
+            details.appendChild(flex1)
             details.appendChild(flex3)
+            details.appendChild(flex2)
             content.appendChild(details)
 
             
