@@ -158,7 +158,7 @@ function refreshActiveList() {
     if (initializeActiveList()) {
         let listName = findList(selectedId);
 
-        document.getElementById("activeList").innerHTML = `Expand This List: ${listName.content}`
+        document.getElementById("activeList").innerHTML = `Expand: ${listName.content}`
         let name = listName.content
         const display = document.getElementById("myListsDisplay").childNodes
         display.forEach((li) => {
