@@ -453,7 +453,7 @@ export default class myLists {
         })
         pages.appendChild(nxtButton)
         
-        // figure out top & bottom and account for total array length then set the for loop to fit that range for pages.
+        // This sets up the pages for the list
         let pageTop = currentPage * 20;
         let pageBottom = pageTop - 20;
         if (pageTop > list.length) {
@@ -467,8 +467,6 @@ export default class myLists {
             const details = document.createElement('ul')
             details.className="gameItem"
 
-
-
             const flex2 = document.createElement('div')
             flex2.className = "flex2"
             const background = document.createElement('img')
@@ -480,7 +478,7 @@ export default class myLists {
             }            
             background.className = "thumbnail"
             flex2.appendChild(background)
-            details.appendChild(flex2)
+
 
             const flex3 = document.createElement('div')
             flex3.className = "flex3"
@@ -489,9 +487,14 @@ export default class myLists {
             name.className = "gameName"
             flex3.appendChild(name)
 
+            const hidden = document.createElement('div')
+            hidden.className = "listDetailsHidden"
+            const detailsName = document.createElement('p')
+            detailsName.innerHTML = `${game.name}`
+            detailsName.className = "detailsName"
+            hidden.appendChild(detailsName)
             const ul = document.createElement('ul')
-            ul.className = "listDetailsHidden"
-
+            hidden.appendChild(ul)
         
             let esrbRating
             if (game.esrb_rating === null) {
@@ -517,8 +520,10 @@ export default class myLists {
             <li><b>Average Playtime:</b>  ${game.playtime} hours</li>
             <li><b>ESRB Rating:</b>       ${esrbRating}</li>       
             `
-            
-            flex3.appendChild(ul)
+            flex3.appendChild(hidden)
+
+
+            details.appendChild(flex2)
             details.appendChild(flex3)
             content.appendChild(details)
 
@@ -542,11 +547,29 @@ export default class myLists {
                 }
             });
 
+                //event listeners
+                background.addEventListener("mouseover",function() {
+                    hidden.className = "listDetails"
+                    name.className = "gameNameHidden"
+            });
+
+            background.addEventListener("mouseleave",function() {
+                hidden.className = "listDetailsHidden"
+                name.className = "gameName"
+            });
+
             //add list event listener
             document.getElementById('addAList').addEventListener("click",function() {
                 refreshGameList()
             });
-        };        
+        };     
+        const gridBottom = document.createElement('div')
+        gridBottom.className = "gridBottom"
+        content.appendChild(gridBottom)     
+        const gridBottom2 = document.createElement('div')
+        gridBottom2.className = "gridBottom"
+        content.appendChild(gridBottom2)   
+           
         const activeListDisplay = document.getElementById('activeListContents').childNodes;
         activeListDisplay.forEach((child1)=> {
             if (child1.nodeName === 'UL') {
@@ -576,6 +599,8 @@ export default class myLists {
 
     // fetches the data and lists it to the screen.
     async loadContent(URL, page) {
+
+        content.innerHTML=`<div class="ring">Loading<span></span></div>`
 
         customListActive = false;
         currentPage = page
