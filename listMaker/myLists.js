@@ -379,6 +379,18 @@ export default class myLists {
 
     }
 
+    async loadGameSpecificDetails(id) {
+        let details;
+        await fetch(`https://api.rawg.io/api/games/` + id + `?key=5fcfbcd5288a49eaab7b27d6c0574021`)
+        .then(response => response.json())
+        .then(data => {
+            details = {
+                description: data.description
+            }
+        })
+        return details;
+    }
+
     loadActiveList(list, page) {
         content.innerHTML=''
         console.log(list)
@@ -469,7 +481,6 @@ export default class myLists {
 
         for (let i = pageBottom; i < pageTop ; i++) {
             const game = list[i]
-
 
             const details = document.createElement('ul')
             details.className="gameItem"
@@ -694,7 +705,11 @@ export default class myLists {
         content.innerHTML=''
         results.forEach((result) => {
 
-            let game = new Game(result);
+            
+            let game = new Game(result)
+
+            
+
             const details = document.createElement('ul')
             details.className="gameItem"
 
@@ -704,7 +719,6 @@ export default class myLists {
             addButton.className = "addGameButton"
             addButton.innerHTML = "Add to List";
             addButton.id = "addToListButton"
-            addButton.dataset.id = game.id
             flex1.appendChild(addButton)
             
             const flex2 = document.createElement('div')
@@ -752,6 +766,7 @@ export default class myLists {
                 metacritic = game.metacritic + "/100";
             }
             ul.innerHTML = `
+            <li><b>Description:</b>       ${game.description}</li>
             <li><b>Release Date:</b>      ${game.released}</li>
             <li><b>Genres:</b>            ${getString(game.genres, "genres")}</li>
             <li><b>Platforms:</b>         ${getString(game.platforms, "platforms")}</li>

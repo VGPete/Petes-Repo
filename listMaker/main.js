@@ -37,7 +37,6 @@ function sidebar() {
     })
 
 
-
     // explore list structure
     const ul = document.createElement("ul")
     ul.className="explore"
