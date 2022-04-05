@@ -2,7 +2,14 @@ export default class Game {
     constructor(game) {
         this.id = game.id;
         this.released = game.released;
-        this.background_image = game.background_image;
+        if (game.background_image === null) {
+            this.background_image = game.background_image
+        }
+        else {
+            this.background_image = game.background_image.slice(0, 28) + 'crop/600/400/'+ game.background_image.slice(28, game.background_image.length)
+
+        }
+        
         this.metacritic = game.metacritic;
         this.playtime = game.playtime;
         this.name = game.name;

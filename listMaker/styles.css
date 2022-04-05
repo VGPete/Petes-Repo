@@ -57,6 +57,8 @@ h2 {
     display: flex;
     flex-direction: row;
 }
+
+
 .listNameInput {
     border-radius: 10px;
     border: none;
@@ -185,58 +187,94 @@ button:hover {
 }
 
 .content {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    grid-gap: 1rem;
+    list-style-type: none;
     padding-bottom: 10px;
     overflow:auto;
-    display: block;
     flex: 8;
+    height: 110%;
+    margin-bottom: 20%;
+}
+
+.gridBottom {
+    position: relative;
+    height: 300px;
+    width: 100%;
 }
 
 .gameItem {
     background:rgb(40, 40, 40);
-    width: 97%;
     list-style-type: none;
-    display: flex;
-    flex-direction: row;
-    margin: 10px;
+    margin: 5px;
     border-radius: 5px;
 }
 
 .gameItem:hover {
-    background:rgb(55, 55, 55);
+    background:rgb(70, 70, 70);
 }
 
 .flex1 {
-    flex: 1;
+    position: relative;
+    height: 10%;
+}
+
+.flex2 {
+    position: relative;
+    overflow: hidden;
 }
 
 .flex3 {
-    flex: 10;
+    position: relative;
+
 }
-
-
-
-
 
 .thumbnail {
     padding: 5px;
     border-radius: 10px;
     vertical-align: top;
-    margin: 5px;
-    width: 140px;
-    height: 90px;
+    height: auto;
+    width: 100%;
+    object-fit:contain;
+    overflow: hidden;
 }
 
 .gameName {
-
-    font-size: 2.5em;
-
+    font-size:large;
+    text-align: center;
     border-spacing: 5em;
     padding: 5px;;
 }
 
-.listDetails {
-    margin-left: 5%;
+.gameNameHidden {
+    display: none;
+}
+
+.detailsName {
+    font-size:larger;
+    text-align: center;
     padding: 5px;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+}
+
+.listDetails {
+    width: 100%;
+    padding-left: 5px;
+    padding-right: 5px;
+    padding-bottom: 5px;
+    display: inherit;
+    z-index: 2;
+    position: absolute;
+    background:rgb(70,70, 70);
+    list-style-type: none;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+.listDetails ul {
+    list-style-type: none;
 }
 
 .listDetailsHidden {
@@ -263,31 +301,28 @@ button:hover {
 .error {
     background: red;
     position: fixed;
-    height: 57px;
+    height: 50px;
     width: 20%;
     right: 0;
     top: 0;
     padding: 10px;
     z-index: 2;
-    flex: 1;
     border-radius: 5px;
     margin: 5px;
 }
 
 .inputError {
     background: red;
-    border-top: 2px solid black;
-    border-left: 1px solid black;
-    border-right:  2px solid black;
-    border-bottom:  1px solid black;
     position: fixed;
-    height: 57px;
+    height: 50px;
     width: 20%;
     right: 0;
     top: 0;
     padding: 10px;
     z-index: 2;
     font-size: .75em;
+    border-radius: 5px;
+    margin: 5px;
 }
 
 .inputErrorHidden {
@@ -332,16 +367,16 @@ h4 {
 .addGameButton{
     background-color: green;
     margin-top: 5px;
-    margin-left: 5px;
-    margin-right: 15px;
+    margin-right: 5px;
     margin-bottom: 5px;
-    width: 45px;
-    height: 45px;
-
+    margin-left: 10%;
+    width: 80%;
+    height: 20px;
+    color: black;
 }
 
 .addGameButton:hover {
-    background: rgb(88, 167, 88);
+    color: white;
 }
 
 .lists input {
@@ -401,6 +436,10 @@ h4 {
 
 .explore li, .platforms li {
     padding: 3px;
+}
+.credits {
+    margin-top: 5px;
+    font-size: smaller;
 }
 
 

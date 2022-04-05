@@ -119,6 +119,7 @@ function displayLists(list, element, listList) {
         //Event Listener for delete button.
           button.addEventListener("click",function() {
           listList.deleteList(l.id);
+          listList.loadActiveList(listList.findCurrentList().list, 1)
         });
         //Event Listener for list selection
         text.addEventListener("click",function() {
@@ -669,7 +670,7 @@ export default class myLists {
             flex1.className = "flex1"
             const addButton = document.createElement('button')
             addButton.className = "addGameButton"
-            addButton.innerHTML = "+";
+            addButton.innerHTML = "Add to List";
             addButton.id = "addToListButton"
             addButton.dataset.id = game.id
             flex1.appendChild(addButton)
@@ -693,10 +694,14 @@ export default class myLists {
             name.innerHTML = `${game.name}`
             name.className = "gameName"
             flex3.appendChild(name)
-
+            const hidden = document.createElement('div')
+            hidden.className = "listDetailsHidden"
+            const detailsName = document.createElement('p')
+            detailsName.innerHTML = `${game.name}`
+            detailsName.className = "detailsName"
+            hidden.appendChild(detailsName)
             const ul = document.createElement('ul')
-            ul.className = "listDetailsHidden"
-
+            hidden.appendChild(ul)
         
             let esrbRating
             if (game.esrb_rating === null) {
@@ -724,30 +729,25 @@ export default class myLists {
             `
             
 
-            flex3.appendChild(ul)
-            details.appendChild(flex1)
-            details.appendChild(flex3)
-            details.appendChild(flex2)
-            content.appendChild(details)
-
+            flex3.appendChild(hidden)
             
 
+            details.appendChild(flex2)
+            details.appendChild(flex1)
+            details.appendChild(flex3)
+       
+            content.appendChild(details)
+           
+
             //event listeners
-            background.addEventListener("click",function() {
-                if (ul.className === "listDetailsHidden") {
-                    ul.className = "listDetails"
-                }
-                else {
-                    ul.className = "listDetailsHidden"
-                }
+            background.addEventListener("mouseover",function() {
+                    hidden.className = "listDetails"
+                    name.className = "gameNameHidden"
             });
-            name.addEventListener("click",function() {
-                if (ul.className === "listDetailsHidden") {
-                    ul.className = "listDetails"
-                }
-                else {
-                    ul.className = "listDetailsHidden"
-                }
+
+            background.addEventListener("mouseleave",function() {
+                hidden.className = "listDetailsHidden"
+                name.className = "gameName"
             });
 
             //active list display
@@ -762,6 +762,12 @@ export default class myLists {
             document.getElementById('addAList').addEventListener("click",function() {
                 refreshGameList()
             });
-        });        
+        });   
+        const gridBottom = document.createElement('div')
+        gridBottom.className = "gridBottom"
+        content.appendChild(gridBottom)     
+        const gridBottom2 = document.createElement('div')
+        gridBottom2.className = "gridBottom"
+        content.appendChild(gridBottom2)   
     }
 }
