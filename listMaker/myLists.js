@@ -123,7 +123,6 @@ function displayLists(list, element, listList) {
         });
         //Event Listener for list selection
         text.addEventListener("click",function() {
-            console.log("event fired for click")
             setSelectedId(l.id);
             clearSelection();
             refreshActiveList();
@@ -304,6 +303,13 @@ export default class myLists {
         // key for localStorage saving and lookup
         this.key = key;
         bindTouch("#addAList", this.newList.bind(this));
+        document.getElementById("listName").addEventListener("keydown", (e) => {
+            if (e.key === 'Enter') {
+                this.newList()
+                refreshGameList()
+            }
+        })
+
         this.listLists();
     }
 
@@ -315,6 +321,7 @@ export default class myLists {
             document.getElementById("inputError").className="inputErrorHidden"
             task.value = "";
             this.listLists();
+
         }
         else {
             document.getElementById("inputError").className="inputError"
@@ -569,7 +576,7 @@ export default class myLists {
         const gridBottom2 = document.createElement('div')
         gridBottom2.className = "gridBottom"
         content.appendChild(gridBottom2)   
-           
+
         const activeListDisplay = document.getElementById('activeListContents').childNodes;
         activeListDisplay.forEach((child1)=> {
             if (child1.nodeName === 'UL') {

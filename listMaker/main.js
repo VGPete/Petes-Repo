@@ -27,6 +27,17 @@ function sidebar() {
         document.getElementById("searchInput").value = "";
     })
 
+    document.getElementById("searchInput").addEventListener("keydown", (e) => {
+        if (e.key === 'Enter') {
+            let input = document.getElementById("searchInput").value
+            let search = 'https://api.rawg.io/api/games?' + apiKey + '&search=' + input + '&ordering=-metacritic&search_exact=true&page_size=20&page='
+            myList.loadContent(search, 1);
+            document.getElementById("searchInput").value = "";
+        }
+    })
+
+
+
     // explore list structure
     const ul = document.createElement("ul")
     ul.className="explore"
