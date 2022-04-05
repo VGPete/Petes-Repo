@@ -379,22 +379,8 @@ export default class myLists {
 
     }
 
-    async loadGameSpecificDetails(id) {
-        let details;
-        await fetch(`https://api.rawg.io/api/games/` + id + `?key=5fcfbcd5288a49eaab7b27d6c0574021`)
-        .then(response => response.json())
-        .then(data => {
-            details = {
-                description: data.description
-            }
-        })
-        return details;
-    }
-
     loadActiveList(list, page) {
         content.innerHTML=''
-        console.log(list)
-
         
         customListActive =  true;
         currentPage = page
@@ -598,9 +584,7 @@ export default class myLists {
                         activeListDisplay3.forEach((child3)=> {
                             if (child3.nodeName === 'BUTTON') {
                                 child3.addEventListener("click", () => {
-                                    console.log("button Clicked")
                                     if (customListActive === true) {
-                                        console.log("active list is true")
                                         this.loadActiveListResults(this.findCurrentList().list, currentPage)
                                     }
                                 });
@@ -627,7 +611,6 @@ export default class myLists {
         const json = await data.json()
         const results = json.results
         numPages = Math.ceil(json.count / 20)
-        console.log(results)
 
         // initial refresh prior to any changes made
         refreshGameList()
@@ -707,8 +690,7 @@ export default class myLists {
 
             
             let game = new Game(result)
-
-            
+       
 
             const details = document.createElement('ul')
             details.className="gameItem"
@@ -766,7 +748,6 @@ export default class myLists {
                 metacritic = game.metacritic + "/100";
             }
             ul.innerHTML = `
-            <li><b>Description:</b>       ${game.description}</li>
             <li><b>Release Date:</b>      ${game.released}</li>
             <li><b>Genres:</b>            ${getString(game.genres, "genres")}</li>
             <li><b>Platforms:</b>         ${getString(game.platforms, "platforms")}</li>
