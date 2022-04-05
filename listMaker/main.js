@@ -23,16 +23,44 @@ function sidebar() {
     document.getElementById("searchButton").addEventListener("click",function() {
         let input = document.getElementById("searchInput").value
         let search = 'https://api.rawg.io/api/games?' + apiKey + '&search=' + input + '&ordering=-metacritic&search_exact=true&page_size=20&page='
-        myList.loadContent(search, 1);
-        document.getElementById("searchInput").value = "";
+        const verification = /^[\w\-\_\s]+$/
+
+        if (input.match(verification)) {
+            myList.loadContent(search, 1);
+            document.getElementById("searchInput").value = "";
+        }
+        else {
+            document.getElementById("inputError").className="inputError"
+            document.getElementById("inputError").innerHTML="Invalid search: characters must only be a-z, 0-9, -, _ and spaces."
+            document.getElementById("searchInput").value = "";
+            setTimeout(function(){
+                document.getElementById("inputError").className = "inputErrorHidden"
+                document.getElementById("inputError").innerHTML = ""
+            }, 5000)
+        }
+
+        
     })
 
     document.getElementById("searchInput").addEventListener("keydown", (e) => {
         if (e.key === 'Enter') {
             let input = document.getElementById("searchInput").value
             let search = 'https://api.rawg.io/api/games?' + apiKey + '&search=' + input + '&ordering=-metacritic&search_exact=true&page_size=20&page='
-            myList.loadContent(search, 1);
-            document.getElementById("searchInput").value = "";
+            const verification = /^[\w\-\_\s]+$/
+    
+            if (input.match(verification)) {
+                myList.loadContent(search, 1);
+                document.getElementById("searchInput").value = "";
+            }
+            else {
+                document.getElementById("inputError").className="inputError"
+                document.getElementById("inputError").innerHTML="Invalid search: characters must only be a-z, 0-9, -, _ and spaces."
+                document.getElementById("searchInput").value = "";
+                setTimeout(function(){
+                    document.getElementById("inputError").className = "inputErrorHidden"
+                    document.getElementById("inputError").innerHTML = ""
+                }, 5000)
+            }
         }
     })
 

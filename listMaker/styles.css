@@ -53,7 +53,7 @@ body {
 
 .displayBox {
     position:fixed;
-    height: 91%;
+    height: 89%;
     width: 100%;
     top: 10%;
     display: flex;
@@ -444,7 +444,9 @@ h4 {
     margin-top: 5px;
     font-size: smaller;
 }
-
+.description {
+    font-size: x-small;
+}
 
 
 .ring
